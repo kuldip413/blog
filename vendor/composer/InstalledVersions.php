@@ -24,12 +24,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'v8.1.1',
-    'version' => '8.1.1.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '0df6da544252601f93aa18331ee689ed7e722685',
     'name' => 'laravel/lumen',
   ),
   'versions' => 
@@ -372,12 +372,12 @@ private static $installed = array (
     ),
     'laravel/lumen' => 
     array (
-      'pretty_version' => 'v8.1.1',
-      'version' => '8.1.1.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '0df6da544252601f93aa18331ee689ed7e722685',
     ),
     'laravel/lumen-framework' => 
     array (
@@ -387,6 +387,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '288f3f36f71a326d22cffb8470b4c738a162dc3d',
+    ),
+    'lcobucci/jwt' => 
+    array (
+      'pretty_version' => '3.3.3',
+      'version' => '3.3.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c1123697f6a2ec29162b82f170dd4a491f524773',
     ),
     'mockery/mockery' => 
     array (
@@ -425,6 +434,15 @@ private static $installed = array (
       array (
         0 => '1.10.2',
       ),
+    ),
+    'namshi/jose' => 
+    array (
+      'pretty_version' => '7.2.3',
+      'version' => '7.2.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '89a24d7eb3040e285dd5925fcad992378b82bcff',
     ),
     'nesbot/carbon' => 
     array (
@@ -624,8 +642,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache' => 
@@ -948,6 +966,15 @@ private static $installed = array (
       ),
       'reference' => '39d483bdf39be819deabf04ec872eb0b2410b531',
     ),
+    'symfony/polyfill-php56' => 
+    array (
+      'pretty_version' => 'v1.20.0',
+      'version' => '1.20.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '54b8cd7e6c1643d78d011f3be89f3ef1f9f4c675',
+    ),
     'symfony/polyfill-php72' => 
     array (
       'pretty_version' => 'v1.20.0',
@@ -1044,6 +1071,16 @@ private static $installed = array (
       array (
       ),
       'reference' => '75a63c33a8577608444246075ea0af0d052e452a',
+    ),
+    'tymon/jwt-auth' => 
+    array (
+      'pretty_version' => 'dev-develop',
+      'version' => 'dev-develop',
+      'aliases' => 
+      array (
+        0 => '1.0.x-dev',
+      ),
+      'reference' => 'fb0cfc8b6bf82ec3ace2eed10f27db0da064d8f9',
     ),
     'vlucas/phpdotenv' => 
     array (
