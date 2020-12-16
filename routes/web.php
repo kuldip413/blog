@@ -71,4 +71,13 @@ $router->group(['middleware' => ['auth', 'verified']], function() use ($router){
    // gives one user by id
    $router->get('/api/users/{id}', 'UserController@singleUser');
 
+   //Matches /api/delete/1
+   //requires token for user and id of user which we are going to delete
+   $router->get('/api/delete/{id}', 'UserController@deleteUser');
+
+   //matche /api/getUser
+   //requires two parameters token and user email
+   //different than /api/users/id
+   $router->get('/api/getUser', 'UserController@getUserByEmail');
+
 });

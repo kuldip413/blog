@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 namespace App\Traits;
 
@@ -56,8 +56,12 @@ trait ResetsPasswords
         );
 
         return $response == Password::PASSWORD_RESET
-            ? response()->json(true)
-            : response()->json(false);
+            ? response()->json([
+                'Status' => 'Password reset successful'
+            ])
+            : response()->json([
+                'Status' => 'Password reset un-successful'
+            ]);
     }
 
     /**

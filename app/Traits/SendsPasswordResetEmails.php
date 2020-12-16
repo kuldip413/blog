@@ -43,8 +43,12 @@ trait SendsPasswordResetEmails
         //             ? $this->sendResetLinkResponse($request, $response)
         //             : $this->sendResetLinkFailedResponse($request, $response);
         return $response == Password::RESET_LINK_SENT
-            ? response()->json(true)
-            : response()->json(false);
+            ? response()->json([
+                'Status' => 'Reset link is sent to registerd email-id'
+            ])
+            : response()->json([
+                'Status' => 'Unable to send Email'
+            ]);
     }
 
     /**
