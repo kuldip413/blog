@@ -64,25 +64,67 @@ class UserController extends Controller
 
     public function deleteUser($id)
     {
-        try{
-            // return Auth::user()->roles;
-            if(Auth::user()->roles == 'Admin'){
-                $user = User::findOrFail($id);
-                $deletedUser= $user;
-                $user->delete();
-
+        // try{
+        // return Auth::user()->roles;
+        if(Auth::user()->roles == 'Admin'){
+            $delete = User::destroy($id);
+            // $deletedUser= $user;
+            // $user->delete();
+            if($delete){
                 return response()->json([
-                    'user' => $deletedUser,
                     'Message' => 'delete successfull'
                 ],200);
             }
             else{
-                return response()->json(['message' => 'Only Admin can delete User']);
+                return response()->json([
+                    'Message' => 'Not Found'
+                ]);
             }
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Unable to delete user']);
+
+            // return response()->json([
+            //     'user' => $deletedUser,
+            //     'Message' => 'delete successfull'
+            // ],200);
+        }
+        else{
+            return response()->json(['message' => 'Only Admin can delete User']);
+        }
+        // } catch (\Exception $e) {
+        //     return response()->json(['message' => 'Unable to delete user']);
+        // }
+    }
+
+
+    public function restoreUser($id){
+        if(Auth::user()->roles == 'Admin'){
+            $recycle =User::onlyTrashed()->find($id);
+            if(!is_null($recycle)){
+                $recycle->restore();
+                return response()->json([
+                    'Message' => 'successfully Restored'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'Message' => 'Not Found'
+                ]);
+            } 
+
+        }
+        else{
+            return response()->json(['message' => 'Only Admin can restore User']);
         }
     }
+
+    public function getalluser(){
+        if(Auth::user()->roles == 'Admin'){
+            return response()->json(['users' =>  User::withTrashed()->get()], 200); 
+        }
+        else{
+            return response()->json(['message' => 'Only Admin can see all users in databse']);
+        }
+    }
+
 
     // public function getUserByEmail($email){
     //     $user = User::where('email',$email)->first();
@@ -101,5 +143,38 @@ class UserController extends Controller
             return response()->json(['message' => 'user not found!'], 404);
         }
 
+    }
+
+    public function registerUser(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed',
+        ]);
+
+        try {
+            if(Auth::user()->roles == 'Admin'){
+                $user = new User;
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                $user->roles = 'NormalUser';
+                $plainPassword = $request->input('password');
+                $user->password = app('hash')->make($plainPassword);
+                $user->created_by = 'Admin';
+                $user->save();
+
+                //return successful response
+                return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
+            }
+            else{
+                return response()->json(['message' => 'you do not have the permission to create user']);
+            }   
+
+        } 
+        catch (\Exception $e) {
+            //return error message
+            return response()->json(['message' => 'User Registration Failed!'], 409);
+        }
     }
 }

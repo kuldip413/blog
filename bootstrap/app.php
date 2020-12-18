@@ -65,7 +65,7 @@ $app->configure('app');
 $app->configure('mail');
 $app->configure('services');
 
-
+// $app->alias('JWTAuth',Tymon\JWTAuth\Facades\JWTAuth::class);
 $app->alias('mail.manager', Illuminate\Mail\MailManager::class);
 $app->alias('mail.manager', Illuminate\Contracts\Mail\Factory::class);
 

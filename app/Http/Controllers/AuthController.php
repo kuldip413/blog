@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use  App\User;
+use DB;
 
 class AuthController extends Controller
 {
@@ -28,9 +30,12 @@ class AuthController extends Controller
             $user = new User;
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-            $user->roles = 'NormalUser';
+            // $user->roles = 'NormalUser';
+            $user->roles = 'Admin';
             $plainPassword = $request->input('password');
             $user->password = app('hash')->make($plainPassword);
+            // $user->created_by = 'Self';
+            $user->created_by = 'Admin';
 
             $user->save();
 
@@ -55,6 +60,12 @@ class AuthController extends Controller
     public function login(Request $request)
     {
           //validate incoming request 
+        // $b = DB::select(DB::raw('select * from password_resets'));
+        // print_r(json_encode($b));
+        // die;
+        // $a = DB::select(DB::raw('select * from users'));
+        // print_r(json_encode($a));
+        // die;
         $this->validate($request, [
             'email' => 'required|string',
             'password' => 'required|string',
@@ -78,12 +89,12 @@ class AuthController extends Controller
     public function emailRequestVerification(Request $request)
     {
         if ( $request->user()->hasVerifiedEmail() ) {
-        return response()->json('Email address is already verified.');
-    }
+            return response()->json('Email address is already verified.');
+        }
     
-    $request->user()->sendEmailVerificationNotification();
+        $request->user()->sendEmailVerificationNotification();
     
-    return response()->json('Email request verification sent to '. Auth::user()->email);
+        return response()->json('Email request verification sent to '. Auth::user()->email);
     }
     /**
     * Verify an email using email and token from email.
@@ -96,8 +107,8 @@ class AuthController extends Controller
         $this->validate($request, [
             'token' => 'required|string',
         ]);
-        \Tymon\JWTAuth\Facades\JWTAuth::getToken();
-        \Tymon\JWTAuth\Facades\JWTAuth::parseToken()->authenticate();
+        JWTAuth::getToken();
+        JWTAuth::parseToken()->authenticate();
         if ( ! $request->user() ) {
             return response()->json('Invalid token', 401);
         }

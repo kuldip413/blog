@@ -52,6 +52,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
    $router->post('/password/reset', [ 'as' => 'password.reset', 'uses' => 'ResetPasswordController@reset' ]);
 
 
+
 });
 
 $router->group(['middleware' => ['auth', 'verified']], function() use ($router){
@@ -75,9 +76,21 @@ $router->group(['middleware' => ['auth', 'verified']], function() use ($router){
    //requires token for user and id of user which we are going to delete
    $router->get('/api/delete/{id}', 'UserController@deleteUser');
 
-   //matche /api/getUser
+   //matches /api/getUser
    //requires two parameters token and user email
    //different than /api/users/id
    $router->get('/api/getUser', 'UserController@getUserByEmail');
+
+   //matches /api/register/admin
+   //requires bearer token of admin and details of new user
+   //only admin can create user
+   $router->post('/api/register/admin', 'UserController@registerUser');
+
+   //matches /api/restore/{id}
+   //only admin can restore user 
+   $router->patch('/api/restore/{id}', 'UserController@restoreUser');
+
+
+   $router->get('/api/getalluser', 'UserController@getalluser');
 
 });
