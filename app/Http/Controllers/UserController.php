@@ -165,7 +165,7 @@ class UserController extends Controller
                 $user->save();
 
                 //return successful response
-                return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
+                return response()->json(['user' => $user, 'message' => 'CREATED, Kindly Verify your email address'], 201);
             }
             else{
                 return response()->json(['message' => 'you do not have the permission to create user']);

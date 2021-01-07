@@ -57,10 +57,10 @@ trait ResetsPasswords
 
         return $response == Password::PASSWORD_RESET
             ? response()->json([
-                'Status' => 'Password reset successful'
+                'message' => 'Password reset successful'
             ])
             : response()->json([
-                'Status' => 'Password reset un-successful'
+                'message' => 'Password reset un-successful'
             ]);
     }
 

@@ -17,6 +17,7 @@ return array(
     'App\\Http\\Controllers\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/ResetPasswordController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
+    'App\\Http\\Middleware\\CorsMiddleware' => $baseDir . '/app/Http/Middleware/CorsMiddleware.php',
     'App\\Http\\Middleware\\EnsureEmailIsVerified' => $baseDir . '/app/Http/Middleware/EnsureEmailIsVerified.php',
     'App\\Http\\Middleware\\ExampleMiddleware' => $baseDir . '/app/Http/Middleware/ExampleMiddleware.php',
     'App\\Jobs\\ExampleJob' => $baseDir . '/app/Jobs/ExampleJob.php',

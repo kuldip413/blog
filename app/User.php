@@ -79,13 +79,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         /**
          * * If user email have changed email verification is required
          * */
-        if( $model->isDirty('email') ) {
-            $model->setAttribute('email_verified_at', null);
-            $model->sendEmailVerificationNotification();
-        }
-    });
-}
-
-
+            if( $model->isDirty('email') ) {
+                $model->setAttribute('email_verified_at', null);
+                $model->sendEmailVerificationNotification();
+            }
+        });
+    }
 
 }

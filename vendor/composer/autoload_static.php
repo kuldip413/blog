@@ -580,6 +580,7 @@ class ComposerStaticInitbf49f687d7014c9cbc775e07428258c3
         'App\\Http\\Controllers\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/ResetPasswordController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
+        'App\\Http\\Middleware\\CorsMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CorsMiddleware.php',
         'App\\Http\\Middleware\\EnsureEmailIsVerified' => __DIR__ . '/../..' . '/app/Http/Middleware/EnsureEmailIsVerified.php',
         'App\\Http\\Middleware\\ExampleMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/ExampleMiddleware.php',
         'App\\Jobs\\ExampleJob' => __DIR__ . '/../..' . '/app/Jobs/ExampleJob.php',

@@ -42,6 +42,10 @@ class VerifyEmail extends Notification
     public function toMail($notifiable)
     {
         $verificationUrl = $this->verificationUrl($notifiable);
+        $verificationUrl = substr($verificationUrl, 32);
+        $url= "http://localhost:3000/profile" ;
+        $verificationUrl = $url ."/".$verificationUrl;
+
         if (static::$toMailCallback) {
             return call_user_func(static::$toMailCallback, $notifiable, $verificationUrl);
         }

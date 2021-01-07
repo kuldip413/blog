@@ -1,5 +1,8 @@
 <?php
-
+// header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+// header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -74,6 +77,7 @@ $router->group(['middleware' => ['auth', 'verified']], function() use ($router){
 
    //Matches /api/delete/1
    //requires token for user and id of user which we are going to delete
+   //only admin can delete user
    $router->get('/api/delete/{id}', 'UserController@deleteUser');
 
    //matches /api/getUser
@@ -90,7 +94,25 @@ $router->group(['middleware' => ['auth', 'verified']], function() use ($router){
    //only admin can restore user 
    $router->patch('/api/restore/{id}', 'UserController@restoreUser');
 
-
+   //matches /api/getalluser
+   //only admin can get all user whether they are deleted or not
    $router->get('/api/getalluser', 'UserController@getalluser');
 
+   $router->get('/api/user/tasks', 'TaskController@getTasks');
+   // $router->get('/api/user/tasks/{id}', '');
+   $router->post('/api/user/addTask','TaskController@addTask');
+
+   $router->get('api/user/getAssign','TaskController@getAssign');
+
+   $router->get('api/user/getAllTasks','TaskController@getAllTasks');
+
+   $router->get('api/user/deleteTask/{id}','TaskController@deleteTask');
+
+   $router->get('api/user/tasks/{id}','TaskController@idTask');
+
+   $router->get('api/user/userTasks/{id}','TaskController@userTasks');
+
+   $router->patch('api/user/editTask/{id}', 'TaskController@editTask');
+
+   $router->patch('api/user/updateTask/{id}', 'TaskController@updateTask');
 });

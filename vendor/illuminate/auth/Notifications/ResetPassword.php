@@ -83,6 +83,9 @@ class ResetPassword extends Notification
      */
     protected function buildMailMessage($url)
     {
+        $url = substr($url, 41);
+        $url1= "http://localhost:3000/resetPassword" ;
+        $url = $url1 ."?".$url;
         return (new MailMessage)
             ->subject(Lang::get('Reset Password Notification'))
             ->line(Lang::get('You are receiving this email because we received a password reset request for your account.'))

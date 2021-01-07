@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use  App\User;
-use DB;
+// use DB;
 
 class AuthController extends Controller
 {
@@ -30,17 +30,17 @@ class AuthController extends Controller
             $user = new User;
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-            // $user->roles = 'NormalUser';
-            $user->roles = 'Admin';
+            $user->roles = 'NormalUser';
+            // $user->roles = 'Admin';
             $plainPassword = $request->input('password');
             $user->password = app('hash')->make($plainPassword);
-            // $user->created_by = 'Self';
-            $user->created_by = 'Admin';
+            $user->created_by = 'Self';
+            // $user->created_by = 'Admin';
 
             $user->save();
 
             //return successful response
-            return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
+            return response()->json(['user' => $user, 'message' => 'CREATED, Kindly Verify your email address'], 201);
 
         } 
         catch (\Exception $e) {
@@ -59,7 +59,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-          //validate incoming request 
+          // validate incoming request 
         // $b = DB::select(DB::raw('select * from password_resets'));
         // print_r(json_encode($b));
         // die;
@@ -118,6 +118,4 @@ class AuthController extends Controller
         $request->user()->markEmailAsVerified();
         return response()->json('Email address '. $request->user()->email.' successfully verified.');
     }
-
-
 }
