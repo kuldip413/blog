@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class TaskController extends Controller{
 	protected $tasks;
@@ -124,6 +125,67 @@ class TaskController extends Controller{
         $task->save();
 
         return response()->json(['task' => $task, 'message' => 'Updated Successfully'], 201);
+	}
+
+	public function taskCount(Request $request){
+		$user = Auth::user();
+		$tasks = Task::where('assigned_to', $user->id)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+        $countCompleted = 0;
+        $countAssigned = 0;
+        $countProgress = 0;
+        for ($i = 0; $i < count($tasks); $i++) {
+		    if(!strcmp($tasks[$i]->status, "completed")){
+		    	$countCompleted = $countCompleted + 1;
+		    }
+		    if(!strcmp($tasks[$i]->status, "assigned")){
+		    	$countAssigned = $countAssigned + 1;
+		    }
+		    if(!strcmp($tasks[$i]->status, "inProgress")){
+		    	$countProgress = $countProgress + 1;
+		    }
+		}
+
+		return response()->json(['Completed' => $countCompleted, 'assigned' => $countAssigned, 'inProgress' => $countProgress]);
+	}
+
+	public function taskCountId(Request $request, $id){
+		$tasks = Task::where('assigned_to', $id)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+        $countCompleted = 0;
+        $countAssigned = 0;
+        $countProgress = 0;
+        for ($i = 0; $i < count($tasks); $i++) {
+		    if(!strcmp($tasks[$i]->status, "completed")){
+		    	$countCompleted = $countCompleted + 1;
+		    }
+		    if(!strcmp($tasks[$i]->status, "assigned")){
+		    	$countAssigned = $countAssigned + 1;
+		    }
+		    if(!strcmp($tasks[$i]->status, "inProgress")){
+		    	$countProgress = $countProgress + 1;
+		    }
+		}
+
+		return response()->json(['Completed' => $countCompleted, 'assigned' => $countAssigned, 'inProgress' => $countProgress]);
+	}
+
+	public function todayTasks(Request $request){
+		$user = Auth::user();
+		$today = Carbon::today();
+		$now = Carbon::now();
+		$tomorrow = Carbon::tomorrow();
+		$yesterday = Carbon::yesterday();
+		$tasks = Task::where('assigned_to', $user->id)
+						->where('due_date','<', $tomorrow)
+						->where('due_date','>',$now)
+						// ->where('due_date','>',$today)
+						->where('status','!=','completed')
+						->get();
+		return response()->json(['tasks' => $tasks]);
+
 	}
 
 }

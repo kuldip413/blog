@@ -115,4 +115,11 @@ $router->group(['middleware' => ['auth', 'verified']], function() use ($router){
    $router->patch('api/user/editTask/{id}', 'TaskController@editTask');
 
    $router->patch('api/user/updateTask/{id}', 'TaskController@updateTask');
+
+
+   $router->get('api/user/taskCount', 'TaskController@taskCount');
+
+   $router->get('api/user/taskCount/{id}', 'TaskController@taskCountId');
+
+   $router-> get('api/user/todayTasks','TaskController@todayTasks');
 });
